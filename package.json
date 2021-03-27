@@ -1,0 +1,19 @@
+{
+  "name": "react-use-dock",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "source": "src/index.ts",
+  "license": "MIT",
+  "scripts": {
+    "build": "microbundle-crl",
+    "build:watch": "microbundle-crl watch"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.3",
+    "microbundle-crl": "^0.13.11",
+    "typescript": "^4.2.3"
+  },
+  "peerDependencies": {
+    "react": "^17.0.2"
+  }
+}

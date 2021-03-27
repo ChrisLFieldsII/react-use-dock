@@ -1,0 +1,5 @@
+export { default as Dock } from './Dock'
+export { default as DockProvider } from './Provider'
+export { default as useDock } from './useDock'
+export { default as DockContext } from './context'
+export { Orientation } from './reducer'
