@@ -38,9 +38,13 @@ const styles: { [key: string]: CSSProperties } = {
   },
 }
 
-function Dock() {
+interface DockProps {
+  id?: string
+  style?: CSSProperties
+}
+
+function Dock({ id = 'react-use-dock', style = {} }: DockProps) {
   const dock = useDock()
-  console.log(dock)
 
   const getStyle = (): CSSProperties => {
     const getSize = (value: number, unit: string): string => {
@@ -65,18 +69,19 @@ function Dock() {
 
     const dockClosedStyle = dock.isOpen ? {} : styles.dockClosed
 
-    const style: CSSProperties = {
+    const dockStyle: CSSProperties = {
       ...styles.dock,
       ...orientationStyle,
       ...sizeStyle,
       ...dockClosedStyle,
+      ...style,
     }
 
-    return style
+    return dockStyle
   }
 
   return (
-    <div className="dock" style={getStyle()}>
+    <div id={id} style={getStyle()}>
       {dock.render()}
     </div>
   )
