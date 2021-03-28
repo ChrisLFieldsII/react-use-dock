@@ -6,7 +6,6 @@ import {
   Select,
   FormLabel,
   Box,
-  Spacer,
   Container,
   NumberInput,
   NumberInputField,
@@ -14,6 +13,7 @@ import {
   NumberIncrementStepper,
   NumberDecrementStepper,
 } from '@chakra-ui/react'
+import { CloseIcon } from '@chakra-ui/icons'
 
 import styles from '../styles/Home.module.css'
 
@@ -27,7 +27,7 @@ export default function Home() {
   useEffect(() => {
     dock.renderDock({
       render: () => (
-        <DockContainer onCloseDock={console.log}>
+        <DockContainer onCloseDock={console.log} CloseIcon={<CloseIcon />}>
           <DockControls />
         </DockContainer>
       ),

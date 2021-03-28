@@ -1,13 +1,8 @@
-import React, { CSSProperties } from 'react'
+import React, { CSSProperties, ReactNode } from 'react'
 
 import useDock from './useDock'
 
 const noop = () => {}
-
-interface DockContainerProps {
-  children: any
-  onCloseDock?(): void
-}
 
 const styles: { [key: string]: CSSProperties } = {
   dockContainer: {
@@ -23,8 +18,19 @@ const styles: { [key: string]: CSSProperties } = {
     justifyContent: 'flex-end',
   },
 }
+interface DockContainerProps {
+  children: any
+  onCloseDock?(): void
+  CloseIcon?: ReactNode
+}
 
-function DockContainer({ children, onCloseDock = noop }: DockContainerProps) {
+const DefaultCloseIcon = <span style={{ fontSize: '1.5em' }}>&times;</span>
+
+function DockContainer({
+  children,
+  CloseIcon = DefaultCloseIcon,
+  onCloseDock = noop,
+}: DockContainerProps) {
   const dock = useDock()
 
   const _onCloseDock = () => {
@@ -35,12 +41,8 @@ function DockContainer({ children, onCloseDock = noop }: DockContainerProps) {
   return (
     <div style={styles.dockContainer}>
       <div style={styles.closeRow}>
-        <div
-          role="button"
-          style={{ fontSize: '1.5em', cursor: 'pointer' }}
-          onClick={_onCloseDock}
-        >
-          &times;
+        <div role="button" style={{ cursor: 'pointer' }} onClick={_onCloseDock}>
+          {CloseIcon}
         </div>
       </div>
 
