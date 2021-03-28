@@ -4,6 +4,7 @@
   "description": "A hook to render dynamic content into a Dock",
   "keywords": [
     "react",
+    "use",
     "hook",
     "dock",
     "dynamic"
