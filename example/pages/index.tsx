@@ -27,7 +27,10 @@ export default function Home() {
   useEffect(() => {
     dock.renderDock({
       render: () => (
-        <DockContainer onCloseDock={console.log} CloseIcon={<CloseIcon />}>
+        <DockContainer
+          onCloseDock={() => console.log('Closed dock')}
+          CloseIcon={<CloseIcon />}
+        >
           <DockControls />
         </DockContainer>
       ),
