@@ -15,6 +15,8 @@ export interface DockContextValue extends ReducerState {
   toggleDock(): void
   renderDock(options: RenderDockOptions): void
   setOrientation(orientation: Orientation): void
+  setSize(size: number): void
+  setMinSize(size: number): void
 }
 
 const initContextValue: DockContextValue = {
@@ -22,6 +24,8 @@ const initContextValue: DockContextValue = {
   closeDock: noop,
   toggleDock: noop,
   setOrientation: noop,
+  setSize: noop,
+  setMinSize: noop,
   renderDock: () => null,
   ...initState,
 }

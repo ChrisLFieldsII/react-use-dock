@@ -119,12 +119,57 @@ const HANDLE_DOCK_SET_ORIENTATION_ACTION = (
 }
 // #endregion DOCK_SET_ORIENTATION
 
+// #region DOCK_SET_SIZE
+export const DOCK_SET_SIZE = 'DOCK_SET_SIZE'
+
+interface I_DOCK_SET_SIZE_ACTION
+  extends IAction<typeof DOCK_SET_SIZE, number> {}
+
+export const DOCK_SET_SIZE_ACTION = (data: number): I_DOCK_SET_SIZE_ACTION => ({
+  type: DOCK_SET_SIZE,
+  data,
+})
+
+const HANDLE_DOCK_SET_SIZE_ACTION = (
+  state: ReducerState,
+  action: I_DOCK_SET_SIZE_ACTION,
+): ReducerState => {
+  return {
+    ...state,
+    size: action.data,
+  }
+}
+// #endregion DOCK_SET_SIZE
+
+// #region DOCK_SET_MIN_SIZE
+export const DOCK_SET_MIN_SIZE = 'DOCK_SET_MIN_SIZE'
+
+interface I_DOCK_SET_MIN_SIZE_ACTION
+  extends IAction<typeof DOCK_SET_MIN_SIZE, number> {}
+
+export const DOCK_SET_MIN_SIZE_ACTION = (
+  data: number,
+): I_DOCK_SET_MIN_SIZE_ACTION => ({ type: DOCK_SET_MIN_SIZE, data })
+
+const HANDLE_DOCK_SET_MIN_SIZE_ACTION = (
+  state: ReducerState,
+  action: I_DOCK_SET_MIN_SIZE_ACTION,
+): ReducerState => {
+  return {
+    ...state,
+    minSize: action.data,
+  }
+}
+// #endregion DOCK_SET_MIN_SIZE
+
 type Actions =
   | I_DOCK_OPEN_ACTION
   | I_DOCK_CLOSE_ACTION
   | I_DOCK_RENDER_ACTION
   | I_DOCK_TOGGLE_ACTION
   | I_DOCK_SET_ORIENTATION_ACTION
+  | I_DOCK_SET_SIZE_ACTION
+  | I_DOCK_SET_MIN_SIZE_ACTION
 
 const actionHandler = {
   [DOCK_OPEN]: HANDLE_DOCK_OPEN_ACTION,
@@ -132,6 +177,8 @@ const actionHandler = {
   [DOCK_RENDER]: HANDLE_DOCK_RENDER_ACTION,
   [DOCK_TOGGLE]: HANDLE_DOCK_TOGGLE_ACTION,
   [DOCK_SET_ORIENTATION]: HANDLE_DOCK_SET_ORIENTATION_ACTION,
+  [DOCK_SET_SIZE]: HANDLE_DOCK_SET_SIZE_ACTION,
+  [DOCK_SET_MIN_SIZE]: HANDLE_DOCK_SET_MIN_SIZE_ACTION,
 }
 
 export const reducer = (

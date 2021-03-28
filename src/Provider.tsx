@@ -11,6 +11,8 @@ import {
   DOCK_TOGGLE_ACTION,
   Orientation,
   DOCK_SET_ORIENTATION_ACTION,
+  DOCK_SET_SIZE_ACTION,
+  DOCK_SET_MIN_SIZE_ACTION,
 } from './reducer'
 
 interface ProviderProps {
@@ -36,9 +38,17 @@ export function Provider({ children }: ProviderProps) {
     dispatch(DOCK_TOGGLE_ACTION())
   }, [])
 
-  const setOrientation = (orientation: Orientation) => {
+  const setOrientation = useCallback((orientation: Orientation) => {
     dispatch(DOCK_SET_ORIENTATION_ACTION(orientation))
-  }
+  }, [])
+
+  const setSize = useCallback((size: number) => {
+    dispatch(DOCK_SET_SIZE_ACTION(size))
+  }, [])
+
+  const setMinSize = useCallback((minSize: number) => {
+    dispatch(DOCK_SET_MIN_SIZE_ACTION(minSize))
+  }, [])
 
   const contextValue: DockContextValue = useMemo(() => {
     return {
@@ -47,6 +57,8 @@ export function Provider({ children }: ProviderProps) {
       renderDock,
       toggleDock,
       setOrientation,
+      setSize,
+      setMinSize,
       ...state,
     }
   }, [state])
