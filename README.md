@@ -8,6 +8,8 @@
 
 ## Install
 
+(requires React version ^16.8.0)
+
 ```bash
 # npm
 npm i react-use-dock
