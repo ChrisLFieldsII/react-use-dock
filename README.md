@@ -133,6 +133,28 @@ type Orientation = 'top' | 'bottom' | 'left' | 'right'
 | setSize        | `setSize(size:number)`                     | Set Dock size                                                   |
 | setMinSize     | `setMinSize(minSize:number)`               | Set Dock minimum size                                           |
 
+> ### Dock
+>
+> The `Dock` component is where the `render` function is called to display content.
+
+```jsx
+interface DockProps {
+  id?: string
+  style?: React.CSSProperties
+}
+```
+
+| Name  | Description                                                    | Default        |
+| ----- | -------------------------------------------------------------- | -------------- |
+| id    | `id` attribute for the Docks `<div>`. Useful for css selection | react-use-dock |
+| style | Inline styles                                                  | {}             |
+
+```jsx
+import { Dock } from 'react-use-dock'
+
+;<Dock id="my-dock" style={{ backgroundColor: 'black', color: 'white' }} />
+```
+
 > ### DockContainer
 
 The `DockContainer` component is a simple wrapper component that renders a close icon at the top right.
@@ -141,9 +163,15 @@ The `DockContainer` component is a simple wrapper component that renders a close
 interface DockContainerProps {
   children: any
   onCloseDock?(): void
-  CloseIcon?: ReactNode // renders <span style={{ fontSize: '1.5em' }}>&times;</span> by default
+  CloseIcon?: ReactNode
 }
 ```
+
+| Name        | Description                           | Default                                              |
+| ----------- | ------------------------------------- | ---------------------------------------------------- |
+| children    | React child components                | -                                                    |
+| onCloseDock | Callback when dock is closed          | () => {}                                             |
+| CloseIcon   | Custom React component for close icon | `<span style={{ fontSize: '1.5em' }}>&times;</span>` |
 
 ```jsx
 import { DockContainer } from 'react-use-dock'
