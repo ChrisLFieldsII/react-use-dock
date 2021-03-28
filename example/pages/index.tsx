@@ -1,9 +1,23 @@
 import Head from 'next/head'
 import { useEffect } from 'react'
+import {
+  VStack,
+  Button,
+  Select,
+  FormLabel,
+  Box,
+  Spacer,
+  Container,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
+} from '@chakra-ui/react'
 
 import styles from '../styles/Home.module.css'
 
-import { Dock, useDock, Orientation } from 'react-use-dock'
+import { Dock, useDock, Orientation, DockContainer } from 'react-use-dock'
 
 const orientations: Orientation[] = ['left', 'bottom', 'right', 'top']
 
@@ -12,7 +26,11 @@ export default function Home() {
 
   useEffect(() => {
     dock.renderDock({
-      render: () => <h1>Dock Content</h1>,
+      render: () => (
+        <DockContainer onCloseDock={console.log}>
+          <DockControls />
+        </DockContainer>
+      ),
       isOpen: true,
       minSize: 350,
       orientation: 'right',
@@ -27,11 +45,25 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div
-        style={{ zIndex: 1000000, display: 'flex', flexDirection: 'column' }}
-      >
-        <button onClick={dock.toggleDock}>Toggle Dock</button>
-        <select
+      <Dock />
+
+      <Container>{!dock.isOpen && <DockControls />}</Container>
+    </div>
+  )
+}
+
+function DockControls() {
+  const dock = useDock()
+
+  return (
+    <VStack spacing="10" mt="5" w="full">
+      <Button colorScheme="purple" w="full" onClick={dock.toggleDock}>
+        Toggle Dock
+      </Button>
+
+      <Box w="full">
+        <FormLabel>Dock Orientation</FormLabel>
+        <Select
           value={dock.orientation}
           onChange={(e) => dock.setOrientation(e.target.value as Orientation)}
         >
@@ -40,10 +72,39 @@ export default function Home() {
               {o}
             </option>
           ))}
-        </select>
-      </div>
+        </Select>
+      </Box>
 
-      <Dock />
-    </div>
+      <Box w="full">
+        <FormLabel>Dock Size</FormLabel>
+        <NumberInput
+          value={dock.size}
+          min={0}
+          max={100}
+          onChange={(_, size) => dock.setSize(size)}
+        >
+          <NumberInputField />
+          <NumberInputStepper>
+            <NumberIncrementStepper />
+            <NumberDecrementStepper />
+          </NumberInputStepper>
+        </NumberInput>
+      </Box>
+
+      <Box w="full">
+        <FormLabel>Dock Minimum Size</FormLabel>
+        <NumberInput
+          value={dock.minSize}
+          min={350}
+          onChange={(_, size) => dock.setMinSize(size)}
+        >
+          <NumberInputField />
+          <NumberInputStepper>
+            <NumberIncrementStepper />
+            <NumberDecrementStepper />
+          </NumberInputStepper>
+        </NumberInput>
+      </Box>
+    </VStack>
   )
 }

@@ -1,12 +1,15 @@
-import '../styles/globals.css'
-
 import { Dock, DockProvider } from 'react-use-dock'
+import { ChakraProvider } from '@chakra-ui/react'
+
+import '../styles/globals.css'
 
 function MyApp({ Component, pageProps }) {
   return (
-    <DockProvider>
-      <Component {...pageProps} />
-    </DockProvider>
+    <ChakraProvider>
+      <DockProvider>
+        <Component {...pageProps} />
+      </DockProvider>
+    </ChakraProvider>
   )
 }
 
