@@ -1,4 +1,4 @@
-import { Dock, DockProvider } from 'react-use-dock'
+import { DockProvider } from 'react-use-dock'
 import { ChakraProvider } from '@chakra-ui/react'
 
 import '../styles/globals.css'
