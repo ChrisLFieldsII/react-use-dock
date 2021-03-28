@@ -19,6 +19,7 @@
   "author": "Chris Fields II <chrisjr06@gmail.com>",
   "repository": "https://github.com/ChrisLFieldsII/react-use-dock",
   "bugs": "https://github.com/ChrisLFieldsII/react-use-dock/issues",
+  "homepage": "https://react-use-dock.vercel.app/",
   "scripts": {
     "build": "microbundle-crl",
     "build:watch": "microbundle-crl watch"
