@@ -2,6 +2,8 @@
 
 ## A hook to render dynamic content into a Dock!
 
+[Visit Demo](https://react-use-dock.vercel.app/)
+
 <p align="center">
   <img src="./react-use-dock.gif" alt="demo" />
 </p>
