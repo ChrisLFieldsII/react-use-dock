@@ -7,7 +7,7 @@ const styles: { [key: string]: CSSProperties } = {
   dock: {
     position: 'absolute',
     zIndex: 100000,
-    transition: 'width 0.5s, min-width 0.5s, height 0.5s min-height 0.5s',
+    transition: 'width 0.5s, min-width 0.5s, height 0.5s, min-height 0.5s',
     overflow: 'auto',
     boxShadow: '5px 10px 8px 10px #888',
     border: '1px solid rgb(183, 183, 185)',
