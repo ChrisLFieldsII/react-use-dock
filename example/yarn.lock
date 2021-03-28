@@ -2195,9 +2195,10 @@ react-style-singleton@^2.1.0:
     invariant "^2.2.4"
     tslib "^1.0.0"
 
-"react-use-dock@link:..":
-  version "0.0.0"
-  uid ""
+react-use-dock@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-use-dock/-/react-use-dock-1.0.0.tgz#d89de8736f5d9a600e6d3f765d9ef7116df5ad85"
+  integrity sha512-HC7vrrjcZjolZ5IrpZIVzup2ODzMTVUax/IYcgU0seTsTToR7B79j5nQ+/K7rUG9cur2nSEfKq++xwuXD3ipFA==
 
 react@17.0.2:
   version "17.0.2"
