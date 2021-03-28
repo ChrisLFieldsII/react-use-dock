@@ -2190,8 +2190,9 @@ react-style-singleton@^2.1.0:
     invariant "^2.2.4"
     tslib "^1.0.0"
 
-"react-use-dock@file:..":
-  version "1.0.0"
+"react-use-dock@link:..":
+  version "0.0.0"
+  uid ""
 
 react@17.0.2:
   version "17.0.2"
