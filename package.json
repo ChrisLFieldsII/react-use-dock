@@ -1,9 +1,23 @@
 {
   "name": "react-use-dock",
   "version": "1.0.0",
+  "description": "A hook to render dynamic content into a Dock",
+  "keywords": [
+    "react",
+    "hook",
+    "dock",
+    "dynamic"
+  ],
+  "private": false,
   "main": "dist/index.js",
   "source": "src/index.ts",
+  "files": [
+    "dist"
+  ],
   "license": "MIT",
+  "author": "Chris Fields II <chrisjr06@gmail.com>",
+  "repository": "https://github.com/ChrisLFieldsII/react-use-dock",
+  "bugs": "https://github.com/ChrisLFieldsII/react-use-dock/issues",
   "scripts": {
     "build": "microbundle-crl",
     "build:watch": "microbundle-crl watch"
