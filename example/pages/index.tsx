@@ -59,7 +59,7 @@ function DockControls() {
   const dock = useDock()
 
   return (
-    <VStack spacing="10" mt="5" w="full">
+    <VStack spacing="10" p="3" mt="5" w="full" boxShadow="dark-lg" rounded="md">
       <Button colorScheme="purple" w="full" onClick={dock.toggleDock}>
         Toggle Dock
       </Button>
@@ -79,7 +79,10 @@ function DockControls() {
       </Box>
 
       <Box w="full">
-        <FormLabel>Dock Size</FormLabel>
+        <FormLabel>
+          Dock Size (
+          {['left', 'right'].includes(dock.orientation) ? 'vw' : 'vh'})
+        </FormLabel>
         <NumberInput
           value={dock.size}
           min={0}
@@ -95,7 +98,7 @@ function DockControls() {
       </Box>
 
       <Box w="full">
-        <FormLabel>Dock Minimum Size</FormLabel>
+        <FormLabel>Dock Minimum Size (px)</FormLabel>
         <NumberInput
           value={dock.minSize}
           min={350}
