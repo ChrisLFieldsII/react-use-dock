@@ -5,7 +5,6 @@ import {
   reducer,
   DOCK_CLOSE_ACTION,
   DOCK_OPEN_ACTION,
-  DOCK_RENDER_ACTION,
   RenderDockOptions,
   initState,
   DOCK_TOGGLE_ACTION,
@@ -13,6 +12,11 @@ import {
   DOCK_SET_ORIENTATION_ACTION,
   DOCK_SET_SIZE_ACTION,
   DOCK_SET_MIN_SIZE_ACTION,
+  DockOpenActionData,
+  DOCK_RENDER_ACTION,
+  Render,
+  DOCK_SET_RENDER_ACTION,
+  DockCloseActionData,
 } from './reducer'
 
 interface ProviderProps {
@@ -22,12 +26,12 @@ interface ProviderProps {
 export function Provider({ children }: ProviderProps) {
   const [state, dispatch] = useReducer(reducer, initState)
 
-  const openDock = useCallback(() => {
-    dispatch(DOCK_OPEN_ACTION())
+  const openDock = useCallback((data?: DockOpenActionData) => {
+    dispatch(DOCK_OPEN_ACTION(data))
   }, [])
 
-  const closeDock = useCallback(() => {
-    dispatch(DOCK_CLOSE_ACTION())
+  const closeDock = useCallback((data?: DockCloseActionData) => {
+    dispatch(DOCK_CLOSE_ACTION(data))
   }, [])
 
   const renderDock = useCallback((options: RenderDockOptions) => {
@@ -50,6 +54,10 @@ export function Provider({ children }: ProviderProps) {
     dispatch(DOCK_SET_MIN_SIZE_ACTION(minSize))
   }, [])
 
+  const setRender = useCallback((render: Render) => {
+    dispatch(DOCK_SET_RENDER_ACTION(render))
+  }, [])
+
   const contextValue: DockContextValue = useMemo(() => {
     return {
       openDock,
@@ -59,6 +67,7 @@ export function Provider({ children }: ProviderProps) {
       setOrientation,
       setSize,
       setMinSize,
+      setRender,
       ...state,
     }
   }, [state])

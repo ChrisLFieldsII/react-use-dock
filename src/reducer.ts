@@ -1,60 +1,114 @@
+import { renderNull } from './utils'
+
 interface IAction<T, U> {
   type: T
   data: U
 }
 
+export type Render = () => JSX.Element | null
+
 export type Orientation = 'top' | 'bottom' | 'left' | 'right'
 
-export interface RenderDockOptions extends ReducerState {}
+export type RenderDockOptions = Partial<ReducerState>
 
 export interface ReducerState {
+  /**
+   * @desc Is Dock open.
+   */
   isOpen: boolean
-  size: number // size is in vw|vh
-  minSize: number // minSize is px
+
+  /**
+   * @desc Dock size. Internally calculated as `vw` (left,right) or `vh` (top,bottom) depending on `orientation`.
+   */
+  size: number
+
+  /**
+   * @desc Dock minimum size. Internally calulated as `px`.
+   */
+  minSize: number
+
+  /**
+   * @desc Where Dock is positioned in viewport. left, right, top, bottom
+   */
   orientation: Orientation
-  render(): JSX.Element | null
+
+  /**
+   * @desc Dock render function.
+   */
+  render: Render
 }
 
 export const initState: ReducerState = {
   isOpen: false,
   size: 50,
   minSize: 350,
-  render: () => null,
+  render: renderNull,
   orientation: 'right',
 }
 
 // #region DOCK_OPEN
+export type DockOpenActionData = Partial<Omit<ReducerState, 'isOpen'>>
+
 export const DOCK_OPEN = 'DOCK_OPEN'
 
-interface I_DOCK_OPEN_ACTION extends IAction<typeof DOCK_OPEN, null> {}
+interface I_DOCK_OPEN_ACTION
+  extends IAction<typeof DOCK_OPEN, DockOpenActionData> {}
 
-export const DOCK_OPEN_ACTION = (): I_DOCK_OPEN_ACTION => ({
+export const DOCK_OPEN_ACTION = (
+  data: DockOpenActionData = {},
+): I_DOCK_OPEN_ACTION => ({
   type: DOCK_OPEN,
-  data: null,
+  data,
 })
 
-const HANDLE_DOCK_OPEN_ACTION = (state: ReducerState): ReducerState => {
+const HANDLE_DOCK_OPEN_ACTION = (
+  state: ReducerState,
+  action: I_DOCK_OPEN_ACTION,
+): ReducerState => {
+  const { data } = action
+
   return {
     ...state,
     isOpen: true,
+    minSize: data.minSize ?? state.minSize,
+    orientation: data.orientation ?? state.orientation,
+    render: data.render ?? state.render,
+    size: data.size ?? state.size,
   }
 }
 // #endregion DOCK_OPEN
 
 // #region DOCK_CLOSE
+
+export interface DockCloseActionData {
+  /**
+   * @desc If `true`, opening and closing Dock persists same `render` function.
+   * If `false`, `render` is set to `() => null` and MUST set a new `render` function before opening Dock
+   * or a blank screen will be displayed.
+   */
+  persistRender?: boolean
+}
+
 export const DOCK_CLOSE = 'DOCK_CLOSE'
 
-interface I_DOCK_CLOSE_ACTION extends IAction<typeof DOCK_CLOSE, null> {}
+interface I_DOCK_CLOSE_ACTION
+  extends IAction<typeof DOCK_CLOSE, DockCloseActionData> {}
 
-export const DOCK_CLOSE_ACTION = (): I_DOCK_CLOSE_ACTION => ({
+export const DOCK_CLOSE_ACTION = (
+  data: DockCloseActionData = { persistRender: true },
+): I_DOCK_CLOSE_ACTION => ({
   type: DOCK_CLOSE,
-  data: null,
+  data,
 })
 
-const HANDLE_DOCK_CLOSE_ACTION = (state: ReducerState): ReducerState => {
+const HANDLE_DOCK_CLOSE_ACTION = (
+  state: ReducerState,
+  action: I_DOCK_CLOSE_ACTION,
+): ReducerState => {
   return {
     ...state,
     isOpen: false,
+    render: action.data.persistRender ? state.render : renderNull,
   }
 }
 // #endregion DOCK_CLOSE
@@ -73,9 +127,15 @@ const HANDLE_DOCK_RENDER_ACTION = (
   state: ReducerState,
   action: I_DOCK_RENDER_ACTION,
 ): ReducerState => {
+  const { data } = action
+
   return {
     ...state,
-    ...action.data,
+    isOpen: data.isOpen ?? state.isOpen,
+    minSize: data.minSize ?? state.minSize,
+    orientation: data.orientation ?? state.orientation,
+    render: data.render ?? state.render,
+    size: data.size ?? state.size,
   }
 }
 // #endregion DOCK_RENDER
@@ -162,23 +222,46 @@ const HANDLE_DOCK_SET_MIN_SIZE_ACTION = (
 }
 // #endregion DOCK_SET_MIN_SIZE
 
+// #region DOCK_SET_RENDER
+export const DOCK_SET_RENDER = 'DOCK_SET_RENDER'
+
+interface I_DOCK_SET_RENDER_ACTION
+  extends IAction<typeof DOCK_SET_RENDER, Render> {}
+
+export const DOCK_SET_RENDER_ACTION = (
+  data: Render,
+): I_DOCK_SET_RENDER_ACTION => ({ type: DOCK_SET_RENDER, data })
+
+const HANDLE_DOCK_SET_RENDER_ACTION = (
+  state: ReducerState,
+  action: I_DOCK_SET_RENDER_ACTION,
+): ReducerState => {
+  return {
+    ...state,
+    render: action.data,
+  }
+}
+// #endregion DOCK_SET_RENDER
+
 type Actions =
   | I_DOCK_OPEN_ACTION
   | I_DOCK_CLOSE_ACTION
-  | I_DOCK_RENDER_ACTION
   | I_DOCK_TOGGLE_ACTION
   | I_DOCK_SET_ORIENTATION_ACTION
   | I_DOCK_SET_SIZE_ACTION
   | I_DOCK_SET_MIN_SIZE_ACTION
+  | I_DOCK_SET_RENDER_ACTION
+  | I_DOCK_RENDER_ACTION
 
 const actionHandler = {
   [DOCK_OPEN]: HANDLE_DOCK_OPEN_ACTION,
   [DOCK_CLOSE]: HANDLE_DOCK_CLOSE_ACTION,
-  [DOCK_RENDER]: HANDLE_DOCK_RENDER_ACTION,
   [DOCK_TOGGLE]: HANDLE_DOCK_TOGGLE_ACTION,
   [DOCK_SET_ORIENTATION]: HANDLE_DOCK_SET_ORIENTATION_ACTION,
   [DOCK_SET_SIZE]: HANDLE_DOCK_SET_SIZE_ACTION,
   [DOCK_SET_MIN_SIZE]: HANDLE_DOCK_SET_MIN_SIZE_ACTION,
+  [DOCK_SET_RENDER]: HANDLE_DOCK_SET_RENDER_ACTION,
+  [DOCK_RENDER]: HANDLE_DOCK_RENDER_ACTION,
 }
 
 export const reducer = (

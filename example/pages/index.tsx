@@ -1,9 +1,6 @@
 import Head from 'next/head'
 import { useEffect } from 'react'
-import { Container } from '@chakra-ui/react'
-import { CloseIcon } from '@chakra-ui/icons'
-
-import styles from '../styles/Home.module.css'
+import { Container, CloseButton } from '@chakra-ui/react'
 
 import { Dock, useDock, DockContainer } from 'react-use-dock'
 
@@ -17,7 +14,7 @@ export default function Home() {
       render: () => (
         <DockContainer
           onCloseDock={() => console.log('Closed dock')}
-          CloseIcon={<CloseIcon />}
+          CloseIcon={<CloseButton />}
         >
           <DockControls />
         </DockContainer>
