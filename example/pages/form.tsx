@@ -8,6 +8,8 @@ import {
   Container,
   CloseButton,
   Divider,
+  Checkbox,
+  VStack,
 } from '@chakra-ui/react'
 import { useDock, Dock, DockContainer } from 'react-use-dock'
 import { DockControls } from 'comps'
@@ -20,26 +22,20 @@ const objectives = [
   'DESTROY ALL HUMANSSS',
 ]
 
-function Form() {
+function FormPage() {
   const dock = useDock()
 
-  useEffect(() => {
-    dock.renderDock({
-      render: () => (
-        <DockContainer
-          onCloseDock={() => console.log('Closed dock')}
-          CloseIcon={<CloseButton />}
-        >
-          <SuperHeroForm />
-          <Divider />
-          <DockControls />
-        </DockContainer>
-      ),
-      isOpen: true,
+  const openDock = () => {
+    dock.openDock({
+      render: () => <DockContent />,
       minSize: 350,
       orientation: 'right',
       size: 50,
     })
+  }
+
+  useEffect(() => {
+    openDock()
   }, [])
 
   return (
@@ -52,8 +48,38 @@ function Form() {
     >
       <Dock />
 
-      {!dock.isOpen && <DockControls />}
+      {!dock.isOpen && <DockControls useToggle={false} onOpen={openDock} />}
     </Container>
+  )
+}
+
+function DockContent() {
+  const [useRandomKey, setUseRandomKey] = useState(false)
+
+  const dock = useDock()
+
+  return (
+    <DockContainer
+      key={useRandomKey ? Math.random() : '1'}
+      CloseIcon={<CloseButton />}
+    >
+      <SuperHeroForm />
+
+      <Divider />
+
+      <DockControls useToggle={false} onClose={dock.closeDock} />
+
+      <Divider />
+
+      <VStack boxShadow="dark-lg" rounded="md" p="3" my="10">
+        <Checkbox
+          isChecked={useRandomKey}
+          onChange={(e) => setUseRandomKey(e.target.checked)}
+        >
+          Always use new form (regardless of persistRender setting)
+        </Checkbox>
+      </VStack>
+    </DockContainer>
   )
 }
 
@@ -81,7 +107,7 @@ function SuperHeroForm() {
           />
         </FormControl>
 
-        <Button type="submit" mt="5" colorScheme="purple">
+        <Button type="submit" mt="5" colorScheme="purple" disabled={!name}>
           Submit
         </Button>
       </form>
@@ -89,4 +115,4 @@ function SuperHeroForm() {
   )
 }
 
-export default Form
+export default FormPage

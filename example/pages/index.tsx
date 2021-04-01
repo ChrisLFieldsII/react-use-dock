@@ -10,7 +10,7 @@ export default function Home() {
   const dock = useDock()
 
   useEffect(() => {
-    dock.renderDock({
+    dock.openDock({
       render: () => (
         <DockContainer
           onCloseDock={() => console.log('Closed dock')}
@@ -19,7 +19,6 @@ export default function Home() {
           <DockControls />
         </DockContainer>
       ),
-      isOpen: true,
       minSize: 350,
       orientation: 'right',
       size: 50,

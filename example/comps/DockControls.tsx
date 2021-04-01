@@ -9,17 +9,40 @@ import {
   NumberInputStepper,
   NumberIncrementStepper,
   NumberDecrementStepper,
+  Checkbox,
+  Flex,
 } from '@chakra-ui/react'
 import { useDock, Orientation } from 'react-use-dock'
 
+const noop = () => {}
+
 const orientations: Orientation[] = ['left', 'bottom', 'right', 'top']
 
-function DockControls() {
+interface DockControlsProps {
+  onOpen?: () => void
+  onClose?: () => void
+  useToggle?: boolean
+}
+
+function DockControls({
+  onOpen = noop,
+  onClose = noop,
+  useToggle = true,
+}: DockControlsProps) {
   const dock = useDock()
+
+  const onClickToggle = () => {
+    const newIsOpen = !dock.isOpen
+
+    if (newIsOpen) onOpen()
+    else onClose()
+
+    if (useToggle) dock.toggleDock()
+  }
 
   return (
     <VStack spacing="10" p="3" mt="5" w="full" boxShadow="dark-lg" rounded="md">
-      <Button colorScheme="purple" w="full" onClick={dock.toggleDock}>
+      <Button colorScheme="purple" w="full" onClick={onClickToggle}>
         Toggle Dock
       </Button>
 
@@ -70,6 +93,15 @@ function DockControls() {
           </NumberInputStepper>
         </NumberInput>
       </Box>
+
+      <Flex w="full" justifyContent="flex-start">
+        <Checkbox
+          isChecked={dock.persistRender}
+          onChange={(e) => dock.setPersistRender(e.target.checked)}
+        >
+          Persist Render
+        </Checkbox>
+      </Flex>
     </VStack>
   )
 }
