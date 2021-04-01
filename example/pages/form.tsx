@@ -29,7 +29,7 @@ function FormPage() {
     dock.openDock({
       render: () => <DockContent />,
       minSize: 350,
-      orientation: 'right',
+      orientation: dock.orientation,
       size: 50,
     })
   }
