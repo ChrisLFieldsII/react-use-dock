@@ -17,6 +17,7 @@ import {
   Render,
   DOCK_SET_RENDER_ACTION,
   DockCloseActionData,
+  DOCK_SET_PERSIST_RENDER_ACTION,
 } from './reducer'
 
 interface ProviderProps {
@@ -58,6 +59,10 @@ export function Provider({ children }: ProviderProps) {
     dispatch(DOCK_SET_RENDER_ACTION(render))
   }, [])
 
+  const setPersistRender = useCallback((persistRender: boolean) => {
+    dispatch(DOCK_SET_PERSIST_RENDER_ACTION(persistRender))
+  }, [])
+
   const contextValue: DockContextValue = useMemo(() => {
     return {
       openDock,
@@ -68,6 +73,7 @@ export function Provider({ children }: ProviderProps) {
       setSize,
       setMinSize,
       setRender,
+      setPersistRender,
       ...state,
     }
   }, [state])

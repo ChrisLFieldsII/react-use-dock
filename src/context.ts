@@ -58,6 +58,14 @@ export interface DockContextValue extends ReducerState {
    * @param render Dock render function
    */
   setRender(render: Render): void
+
+  /**
+   * @desc Set how Dock handles `render` function when closed.
+   * If `true`, opening and closing Dock maintains same `render` function.
+   * If `false`, `render` is set to `() => null` when closed and you MUST set a new `render` function before opening Dock or a blank screen is displayed.
+   * @param persistRender Whether to persist render function on close
+   */
+  setPersistRender(persistRender: boolean): void
 }
 
 const initContextValue: DockContextValue = {
@@ -68,6 +76,7 @@ const initContextValue: DockContextValue = {
   setOrientation: noop,
   setSize: noop,
   setMinSize: noop,
+  setPersistRender: noop,
   setRender: renderNull,
   ...initState,
 }
