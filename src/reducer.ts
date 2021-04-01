@@ -36,6 +36,20 @@ export interface ReducerState {
    * @desc Dock render function.
    */
   render: Render
+
+  /**
+   * @desc If `true`, opening and closing Dock persists same `render` function.
+   * This is good for maintaining component state between open and close.
+   *
+   * If `false`, `render` is set to `() => null` when closed and you MUST set a new `render` function before opening Dock
+   * or a blank screen will be displayed. This is good for always showing a component with new state.
+   *
+   * Note: If you always want the Dock to display a fresh component on open use the `key` prop on root component in `render` function.
+   * Ex: `<button onClick={() => dock.openDock({ render: () => <AlwaysFreshComponent key={Math.random()} /> })} />`
+   *
+   * Note: `persistRender` only applies to `closeDock()`. It does not apply when using `toggleDock()` to help prevent accidentally showing a blank Dock
+   */
+  persistRender: boolean
 }
 
 export const initState: ReducerState = {
@@ -44,7 +58,10 @@ export const initState: ReducerState = {
   minSize: 350,
   render: renderNull,
   orientation: 'right',
+  persistRender: true,
 }
+
+// TODO: persist render actions
 
 // #region DOCK_OPEN
 export type DockOpenActionData = Partial<Omit<ReducerState, 'isOpen'>>
@@ -81,11 +98,6 @@ const HANDLE_DOCK_OPEN_ACTION = (
 // #region DOCK_CLOSE
 
 export interface DockCloseActionData {
-  /**
-   * @desc If `true`, opening and closing Dock persists same `render` function.
-   * If `false`, `render` is set to `() => null` and MUST set a new `render` function before opening Dock
-   * or a blank screen will be displayed.
-   */
   persistRender?: boolean
 }
 
@@ -95,7 +107,7 @@ interface I_DOCK_CLOSE_ACTION
   extends IAction<typeof DOCK_CLOSE, DockCloseActionData> {}
 
 export const DOCK_CLOSE_ACTION = (
-  data: DockCloseActionData = { persistRender: true },
+  data: DockCloseActionData = {},
 ): I_DOCK_CLOSE_ACTION => ({
   type: DOCK_CLOSE,
   data,
@@ -105,10 +117,15 @@ const HANDLE_DOCK_CLOSE_ACTION = (
   state: ReducerState,
   action: I_DOCK_CLOSE_ACTION,
 ): ReducerState => {
+  const { data } = action
+
+  const persistRender = data.persistRender ?? state.persistRender
+
   return {
     ...state,
     isOpen: false,
-    render: action.data.persistRender ? state.render : renderNull,
+    persistRender,
+    render: persistRender ? state.render : renderNull,
   }
 }
 // #endregion DOCK_CLOSE
@@ -136,6 +153,7 @@ const HANDLE_DOCK_RENDER_ACTION = (
     orientation: data.orientation ?? state.orientation,
     render: data.render ?? state.render,
     size: data.size ?? state.size,
+    persistRender: data.persistRender ?? state.persistRender,
   }
 }
 // #endregion DOCK_RENDER
@@ -243,6 +261,27 @@ const HANDLE_DOCK_SET_RENDER_ACTION = (
 }
 // #endregion DOCK_SET_RENDER
 
+// #region DOCK_SET_PERSIST_RENDER
+export const DOCK_SET_PERSIST_RENDER = 'DOCK_SET_PERSIST_RENDER'
+
+interface I_DOCK_SET_PERSIST_RENDER_ACTION
+  extends IAction<typeof DOCK_SET_PERSIST_RENDER, boolean> {}
+
+export const DOCK_SET_PERSIST_RENDER_ACTION = (
+  data: boolean,
+): I_DOCK_SET_PERSIST_RENDER_ACTION => ({ type: DOCK_SET_PERSIST_RENDER, data })
+
+const HANDLE_DOCK_SET_PERSIST_RENDER_ACTION = (
+  state: ReducerState,
+  action: I_DOCK_SET_PERSIST_RENDER_ACTION,
+): ReducerState => {
+  return {
+    ...state,
+    persistRender: action.data,
+  }
+}
+// #endregion DOCK_SET_PERSIST_RENDER
+
 type Actions =
   | I_DOCK_OPEN_ACTION
   | I_DOCK_CLOSE_ACTION
@@ -252,6 +291,7 @@ type Actions =
   | I_DOCK_SET_MIN_SIZE_ACTION
   | I_DOCK_SET_RENDER_ACTION
   | I_DOCK_RENDER_ACTION
+  | I_DOCK_SET_PERSIST_RENDER_ACTION
 
 const actionHandler = {
   [DOCK_OPEN]: HANDLE_DOCK_OPEN_ACTION,
@@ -262,6 +302,7 @@ const actionHandler = {
   [DOCK_SET_MIN_SIZE]: HANDLE_DOCK_SET_MIN_SIZE_ACTION,
   [DOCK_SET_RENDER]: HANDLE_DOCK_SET_RENDER_ACTION,
   [DOCK_RENDER]: HANDLE_DOCK_RENDER_ACTION,
+  [DOCK_SET_PERSIST_RENDER]: HANDLE_DOCK_SET_PERSIST_RENDER_ACTION,
 }
 
 export const reducer = (
