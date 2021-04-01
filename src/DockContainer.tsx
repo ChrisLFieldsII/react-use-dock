@@ -34,8 +34,8 @@ function DockContainer({
   const dock = useDock()
 
   const _onCloseDock = () => {
-    dock.closeDock()
     onCloseDock()
+    dock.closeDock()
   }
 
   return (
