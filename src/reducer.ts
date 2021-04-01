@@ -122,7 +122,6 @@ const HANDLE_DOCK_CLOSE_ACTION = (
   return {
     ...state,
     isOpen: false,
-    persistRender,
     render: persistRender ? state.render : renderNull,
   }
 }
