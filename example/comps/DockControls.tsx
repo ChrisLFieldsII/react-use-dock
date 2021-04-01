@@ -43,6 +43,8 @@ function DockControls({
 
   return (
     <VStack spacing="10" p="3" mt="5" w="full" boxShadow="dark-lg" rounded="md">
+      <Nav />
+
       <Button colorScheme="purple" w="full" onClick={onClickToggle}>
         Toggle Dock
       </Button>
@@ -103,8 +105,6 @@ function DockControls({
           Persist Render
         </Checkbox>
       </Flex>
-
-      <Nav />
     </VStack>
   )
 }
