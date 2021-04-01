@@ -61,8 +61,6 @@ export const initState: ReducerState = {
   persistRender: true,
 }
 
-// TODO: persist render actions
-
 // #region DOCK_OPEN
 export type DockOpenActionData = Partial<Omit<ReducerState, 'isOpen'>>
 
