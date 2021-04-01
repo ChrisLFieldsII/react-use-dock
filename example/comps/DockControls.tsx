@@ -12,6 +12,7 @@ import {
   Checkbox,
   Flex,
 } from '@chakra-ui/react'
+import { Nav } from 'comps'
 import { useDock, Orientation } from 'react-use-dock'
 
 const noop = () => {}
@@ -102,6 +103,8 @@ function DockControls({
           Persist Render
         </Checkbox>
       </Flex>
+
+      <Nav />
     </VStack>
   )
 }

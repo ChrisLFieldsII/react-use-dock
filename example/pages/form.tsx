@@ -67,10 +67,6 @@ function DockContent() {
 
       <Divider />
 
-      <DockControls useToggle={false} onClose={dock.closeDock} />
-
-      <Divider />
-
       <VStack boxShadow="dark-lg" rounded="md" p="3" my="10">
         <Checkbox
           isChecked={useRandomKey}
@@ -79,6 +75,7 @@ function DockContent() {
           Always use new form (regardless of persistRender setting)
         </Checkbox>
       </VStack>
+      <DockControls useToggle={false} onClose={dock.closeDock} />
     </DockContainer>
   )
 }
