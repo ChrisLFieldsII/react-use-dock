@@ -78,9 +78,8 @@ function Example() {
   )
 
   useEffect(() => {
-    dock.renderDock({
+    dock.openDock({
       render,
-      isOpen: true,
       minSize: 350,
       orientation: 'right',
       size: 50,
@@ -97,45 +96,13 @@ function Example() {
 
 ## API
 
-> ### Types
+> ### useDock hook
 
-```jsx
-interface RenderDockOptions {
-  isOpen: boolean
-  size: number
-  minSize: number
-  orientation: Orientation
-  render(): JSX.Element | null
-}
-
-type Orientation = 'top' | 'bottom' | 'left' | 'right'
-```
-
-> ### State
-
-| Name        | Type                        | Description                                                                                                          | Default    |
-| ----------- | --------------------------- | -------------------------------------------------------------------------------------------------------------------- | ---------- |
-| render      | `() => JSX.Element \| null` | Render function for Dock content                                                                                     | () => null |
-| isOpen      | `boolean`                   | Is dock open                                                                                                         | false      |
-| size        | `number`                    | Dock size converted to css unit `vw` if orientation is `left` or `right` OR `vh` if orientation is `top` or `bottom` | 50         |
-| minSize     | `number`                    | Dock minimum size converted to css unit `px`                                                                         | 350        |
-| orientation | `Orientation`               | Side of viewport Dock is positioned                                                                                  | right      |
-
-> ### Functions
-
-| Name           | Signature                                  | Description                                                     |
-| -------------- | ------------------------------------------ | --------------------------------------------------------------- |
-| openDock       | `openDock()`                               | Open the Dock                                                   |
-| closeDock      | `closeDock()`                              | Close the Dock                                                  |
-| toggleDock     | `toggleDock()`                             | Toggle Dock between open and closed depending on current state. |
-| renderDock     | `renderDock(options: RenderDockOptions)`   | Configure Dock state and optionally open the Dock               |
-| setOrientation | `setOrientation(orientation: Orientation)` | Set Dock orientation                                            |
-| setSize        | `setSize(size:number)`                     | Set Dock size                                                   |
-| setMinSize     | `setMinSize(minSize:number)`               | Set Dock minimum size                                           |
+View the `useDock()` api in the [Docs](https://react-use-dock.vercel.app/docs/interfaces/context.dockcontextvalue.html)
 
 > ### Dock
->
-> The `Dock` component is where the `render` function is called to display content.
+
+The `Dock` component is where the `render` function is called to display content.
 
 ```jsx
 interface DockProps {
@@ -148,12 +115,6 @@ interface DockProps {
 | ----- | -------------------------------------------------------------- | -------------- |
 | id    | `id` attribute for the Docks `<div>`. Useful for css selection | react-use-dock |
 | style | Inline styles                                                  | {}             |
-
-```jsx
-import { Dock } from 'react-use-dock'
-
-;<Dock id="my-dock" style={{ backgroundColor: 'black', color: 'white' }} />
-```
 
 > ### DockContainer
 

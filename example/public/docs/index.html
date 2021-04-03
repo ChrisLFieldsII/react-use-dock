@@ -1,0 +1,309 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>react-use-dock</title>
+	<meta name="description" content="Documentation for react-use-dock">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+	<script async src="assets/js/search.js" id="search-script"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">react-use-dock</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<h1>react-use-dock</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#react-use-dock" id="react-use-dock" style="color: inherit; text-decoration: none;">
+					<h1>React Use Dock</h1>
+				</a>
+				<a href="#a-hook-to-render-dynamic-content-into-a-dock" id="a-hook-to-render-dynamic-content-into-a-dock" style="color: inherit; text-decoration: none;">
+					<h2>A hook to render dynamic content into a Dock!</h2>
+				</a>
+				<p><a href="https://react-use-dock.vercel.app/">Visit Demo</a></p>
+				<p align="center">
+					<img src="./react-use-dock.gif" alt="demo" />
+				</p>
+				<a href="#install" id="install" style="color: inherit; text-decoration: none;">
+					<h2>Install</h2>
+				</a>
+				<p>(requires React version ^16.8.0)</p>
+				<pre><code class="language-bash"><span style="color: #008000"># npm</span>
+<span style="color: #000000">npm i react-use-dock</span>
+
+<span style="color: #008000"># Yarn</span>
+<span style="color: #000000">yarn add react-use-dock</span>
+</code></pre>
+				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+					<h2>Usage</h2>
+				</a>
+				<blockquote>
+					<a href="#wrap-application-with-dockprovider" id="wrap-application-with-dockprovider" style="color: inherit; text-decoration: none;">
+						<h3>Wrap application with <code>DockProvider</code></h3>
+					</a>
+				</blockquote>
+				<pre><code class="language-jsx"><span style="color: #000000">import { DockProvider } from &#039;react-use-dock&#039;</span>
+
+<span style="color: #000000">function MyApp() {</span>
+<span style="color: #000000">  return (</span>
+<span style="color: #000000">    &lt;DockProvider&gt;</span>
+<span style="color: #000000">      &lt;Layout&gt;</span>
+<span style="color: #000000">        &lt;AppContent /&gt;</span>
+<span style="color: #000000">      &lt;/Layout&gt;</span>
+<span style="color: #000000">    &lt;/DockProvider&gt;</span>
+<span style="color: #000000">  )</span>
+<span style="color: #000000">}</span>
+</code></pre>
+				<blockquote>
+					<a href="#add-dock-component-into-your-component-tree" id="add-dock-component-into-your-component-tree" style="color: inherit; text-decoration: none;">
+						<h3>Add <code>Dock</code> component into your component tree</h3>
+					</a>
+				</blockquote>
+				<pre><code class="language-jsx"><span style="color: #000000">import { Dock } from &#039;react-use-dock&#039;</span>
+
+<span style="color: #000000">function Layout({ children }) {</span>
+<span style="color: #000000">  return (</span>
+<span style="color: #000000">    &lt;div&gt;</span>
+<span style="color: #000000">      &lt;header&gt;</span>
+<span style="color: #000000">        &lt;h1&gt;React Use Dock&lt;/h1&gt;</span>
+<span style="color: #000000">      &lt;/header&gt;</span>
+
+<span style="color: #000000">      &lt;main&gt;{children}&lt;/main&gt;</span>
+
+<span style="color: #000000">      &lt;footer&gt;Stuff&lt;/footer&gt;</span>
+
+<span style="color: #000000">      {/* Dock is absolutely positioned, place anywhere */}</span>
+<span style="color: #000000">      &lt;Dock /&gt;</span>
+<span style="color: #000000">    &lt;/div&gt;</span>
+<span style="color: #000000">  )</span>
+<span style="color: #000000">}</span>
+</code></pre>
+				<blockquote>
+					<a href="#use-dock" id="use-dock" style="color: inherit; text-decoration: none;">
+						<h3>Use Dock</h3>
+					</a>
+				</blockquote>
+				<pre><code class="language-jsx"><span style="color: #000000">import { useEffect } from &#039;react&#039;</span>
+<span style="color: #000000">import { useDock, DockContainer } from &#039;react-use-dock&#039;</span>
+
+<span style="color: #000000">function Example() {</span>
+<span style="color: #000000">  const dock = useDock()</span>
+
+<span style="color: #000000">  // provide any render function!</span>
+<span style="color: #000000">  const render = () =&gt; (</span>
+<span style="color: #000000">    &lt;DockContainer onCloseDock={() =&gt; console.log(&#039;Closed dock&#039;)}&gt;</span>
+<span style="color: #000000">      &lt;YourDockContent /&gt;</span>
+<span style="color: #000000">    &lt;/DockContainer&gt;</span>
+<span style="color: #000000">  )</span>
+
+<span style="color: #000000">  useEffect(() =&gt; {</span>
+<span style="color: #000000">    dock.openDock({</span>
+<span style="color: #000000">      render,</span>
+<span style="color: #000000">      minSize: 350,</span>
+<span style="color: #000000">      orientation: &#039;right&#039;,</span>
+<span style="color: #000000">      size: 50,</span>
+<span style="color: #000000">    })</span>
+<span style="color: #000000">  }, [])</span>
+
+<span style="color: #000000">  return (</span>
+<span style="color: #000000">    &lt;div&gt;</span>
+<span style="color: #000000">      &lt;button onClick={dock.toggleDock}&gt;Toggle Dock&lt;/button&gt;</span>
+<span style="color: #000000">    &lt;/div&gt;</span>
+<span style="color: #000000">  )</span>
+<span style="color: #000000">}</span>
+</code></pre>
+				<a href="#api" id="api" style="color: inherit; text-decoration: none;">
+					<h2>API</h2>
+				</a>
+				<blockquote>
+					<a href="#usedock-hook" id="usedock-hook" style="color: inherit; text-decoration: none;">
+						<h3>useDock hook</h3>
+					</a>
+				</blockquote>
+				<p>View the <code>useDock()</code> api in the <a href="https://react-use-dock.vercel.app/docs/interfaces/context.dockcontextvalue.html">Docs</a></p>
+				<blockquote>
+					<a href="#dock" id="dock" style="color: inherit; text-decoration: none;">
+						<h3>Dock</h3>
+					</a>
+				</blockquote>
+				<p>The <code>Dock</code> component is where the <code>render</code> function is called to display content.</p>
+				<pre><code class="language-jsx"><span style="color: #000000">interface DockProps {</span>
+<span style="color: #000000">  id?: string</span>
+<span style="color: #000000">  style?: React.CSSProperties</span>
+<span style="color: #000000">}</span>
+</code></pre>
+				<table>
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Description</th>
+							<th>Default</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td>id</td>
+							<td><code>id</code> attribute for the Docks <code>&lt;div&gt;</code>. Useful for css selection</td>
+							<td>react-use-dock</td>
+						</tr>
+						<tr>
+							<td>style</td>
+							<td>Inline styles</td>
+							<td>{}</td>
+						</tr>
+				</tbody></table>
+				<blockquote>
+					<a href="#dockcontainer" id="dockcontainer" style="color: inherit; text-decoration: none;">
+						<h3>DockContainer</h3>
+					</a>
+				</blockquote>
+				<p>The <code>DockContainer</code> component is a simple wrapper component that renders a close icon at the top right.</p>
+				<pre><code class="language-jsx"><span style="color: #000000">interface DockContainerProps {</span>
+<span style="color: #000000">  children: any</span>
+<span style="color: #000000">  onCloseDock?(): void</span>
+<span style="color: #000000">  CloseIcon?: ReactNode</span>
+<span style="color: #000000">}</span>
+</code></pre>
+				<table>
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Description</th>
+							<th>Default</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td>children</td>
+							<td>React child components</td>
+							<td>-</td>
+						</tr>
+						<tr>
+							<td>onCloseDock</td>
+							<td>Callback when dock is closed</td>
+							<td>() =&gt; {}</td>
+						</tr>
+						<tr>
+							<td>CloseIcon</td>
+							<td>Custom React component for close icon</td>
+							<td><code>&lt;span style={{ fontSize: &#39;1.5em&#39; }}&gt;&amp;times;&lt;/span&gt;</code></td>
+						</tr>
+				</tbody></table>
+				<pre><code class="language-jsx"><span style="color: #000000">import { DockContainer } from &#039;react-use-dock&#039;</span>
+
+<span style="color: #000000">function Example() {</span>
+<span style="color: #000000">  return (</span>
+<span style="color: #000000">    &lt;DockContainer</span>
+<span style="color: #000000">      onCloseDock={() =&gt; console.log(&#039;Closed Dock&#039;)}</span>
+<span style="color: #000000">      CloseIcon={&lt;span&gt;Close Dock&lt;/span&gt;}</span>
+<span style="color: #000000">    &gt;</span>
+<span style="color: #000000">      &lt;YourDockContent /&gt;</span>
+<span style="color: #000000">    &lt;/DockContainer&gt;</span>
+<span style="color: #000000">  )</span>
+<span style="color: #000000">}</span>
+</code></pre>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class=" ">
+						<a href="modules.html">Exports</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/dock.html">Dock</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/dockcontainer.html">Dock<wbr>Container</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/provider.html">Provider</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/context.html">context</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/index.html">index</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/reducer.html">reducer</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/usedock.html">use<wbr>Dock</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/utils.html">utils</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

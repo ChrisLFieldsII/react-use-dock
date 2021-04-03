@@ -18,6 +18,10 @@ const links = [
     to: '/form',
     text: 'Form',
   },
+  {
+    to: '/docs/index.html',
+    text: 'Docs',
+  },
 ]
 
 function Nav() {

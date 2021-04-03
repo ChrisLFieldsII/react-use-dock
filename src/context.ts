@@ -11,6 +11,9 @@ import {
 } from './reducer'
 import { noop, renderNull } from './utils'
 
+/**
+ * @desc The Dock object. Contains state and functions to control state.
+ */
 export interface DockContextValue extends ReducerState {
   /**
    * @desc Open the Dock.
