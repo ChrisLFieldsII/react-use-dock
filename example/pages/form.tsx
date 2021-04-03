@@ -28,9 +28,9 @@ function FormPage() {
   const openDock = () => {
     dock.openDock({
       render: () => <DockContent />,
-      minSize: 350,
+      minSize: dock.minSize,
       orientation: dock.orientation,
-      size: 50,
+      size: dock.size,
     })
   }
 
