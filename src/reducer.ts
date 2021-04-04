@@ -89,6 +89,7 @@ const HANDLE_DOCK_OPEN_ACTION = (
     orientation: data.orientation ?? state.orientation,
     render: data.render ?? state.render,
     size: data.size ?? state.size,
+    persistRender: data.persistRender ?? state.persistRender,
   }
 }
 // #endregion DOCK_OPEN
@@ -304,8 +305,10 @@ const actionHandler = {
 
 export const reducer = (
   state: ReducerState = initState,
-  action: Actions,
+  action?: Actions,
 ): ReducerState => {
+  if (!action) return state
+
   const handler = actionHandler[action.type]
 
   if (!handler) return state
